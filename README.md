@@ -45,7 +45,7 @@ and how I solved them.
 
 | # | Lab | AWS Services | Status |
 |---|---|---|---|
-| 01 | EC2 Web Server | EC2, EBS | DONE |
+| 01 | EC2 Web Server | EC2, EBS,CloudWatch | 🟡 In Progress |
 | 02 | Coming Soon | — | ⬜ Not Started |
 | 03 | Coming Soon | — | ⬜ Not Started |
 
