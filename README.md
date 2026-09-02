@@ -45,25 +45,9 @@ and how I solved them.
 
 | # | Lab | AWS Services | Status |
 |---|---|---|---|
-| 01 | EC2 Web Server | EC2, EBS,CloudWatch | 🟡 In Progress |
+| 01 | EC2 Web Server | EC2, EBS,CloudWatch | 🟢 Complete  |
 | 02 | Coming Soon | — | ⬜ Not Started |
 | 03 | Coming Soon | — | ⬜ Not Started |
-
----
-
-## 📈My Progress
-
-### Amazon EC2
-- [ ] Launch an EC2 instance
-- [ ] Configure an AMI
-- [ ] Configure instance types
-- [ ] Configure security groups
-- [ ] Deploy a web server using User Data
-- [ ] Monitor instance health
-- [ ] Resize an EC2 instance
-- [ ] Resize an EBS volume
-- [ ] Configure termination protection
-- [ ] Understand the EC2 instance lifecycle
 
 ---
 
