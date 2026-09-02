@@ -4,7 +4,7 @@
 
 This lab is my first hands-on Amazon EC2 deployment as part of my AWS re/Start learning journey.
 
-I will launch, configure, monitor, resize, protect, and eventually terminate an EC2 instance while documenting what I learn at each stage.
+I launched, configured, monitored, secured, resized, protected, and terminated an EC2 instance while documenting what I learned at each stage.
 
 ---
 
@@ -39,15 +39,18 @@ I will launch, configure, monitor, resize, protect, and eventually terminate an 
 
 The web server was deployed using Amazon EC2 with the following configuration:
 
-| Configuration         | Value                     |
-| --------------------- | ------------------------- |
-| Operating System      | Amazon Linux 2023         |
-| Instance Type         | t3.micro                  |
-| Storage               | 8 GiB gp3                 |
-| Public IPv4           | Enabled                   |
-| Security Group        | Web Server security group |
-| Initial Inbound Rules | None                      |
-| Web Server            | Apache HTTP Server        |
+| Configuration          | Value                     |
+| ---------------------- | ------------------------- |
+| Operating System       | Amazon Linux 2023         |
+| Initial Instance Type  | t3.micro                  |
+| Final Instance Type    | t3.small                  |
+| Initial Storage        | 8 GiB gp3                 |
+| Final Storage          | 10 GiB gp3                |
+| Public IPv4            | Enabled                   |
+| Security Group         | Web Server security group |
+| Initial Inbound Rules  | None                      |
+| Web Server             | Apache HTTP Server        |
+| Termination Protection | Enabled during deployment |
 
 ### User Data
 
@@ -103,9 +106,88 @@ This demonstrated how security groups control inbound network traffic to an EC2 
 
 The EC2 instance was monitored through the Amazon EC2 console.
 
+### Instance Health
+
 The instance successfully reached a running state and passed its available status checks.
 
-Monitoring helps verify that the underlying instance is operating normally before troubleshooting application or network connectivity.
+AWS status checks help verify that the EC2 instance and the underlying AWS infrastructure are operating normally.
+
+### Instance Screenshot
+
+The EC2 console's **Get Instance Screenshot** feature was also used as part of the troubleshooting and monitoring process.
+
+This provided a visual view of the instance's virtual display.
+
+### CloudWatch Metrics
+
+The **Monitoring** tab was used to review the instance's performance metrics, including:
+
+* CPU utilization
+* Network traffic
+* Disk activity
+
+Because the web server was only lightly used during the lab, the recorded resource utilization was relatively low.
+
+Monitoring these metrics helps identify performance issues and understand how an EC2 instance is being used.
+
+---
+
+## Resizing
+
+After completing the initial deployment and monitoring stages, the EC2 instance was resized.
+
+### Instance Type
+
+The instance was stopped before changing its instance type.
+
+The configuration was changed from:
+
+**`t3.micro → t3.small`**
+
+This increased the compute resources available to the EC2 instance.
+
+### EBS Volume
+
+The attached EBS volume was also resized:
+
+**`8 GiB gp3 → 10 GiB gp3`**
+
+The volume type remained **gp3** while its storage capacity was increased.
+
+### What I Learned
+
+The EC2 instance type and EBS volume are separate resources.
+
+* Changing the **instance type** changes the available compute resources.
+* Increasing the **EBS volume size** increases available storage capacity.
+
+This demonstrated that AWS resources can be adjusted as workload requirements change.
+
+---
+
+## Termination Protection
+
+Termination protection was enabled when the EC2 instance was launched.
+
+As part of the lab, I attempted to terminate the instance while termination protection was enabled.
+
+The termination attempt was blocked.
+
+This demonstrated how termination protection can help prevent accidental deletion of an EC2 instance.
+
+After confirming that the protection worked, termination protection was disabled.
+
+---
+
+## Termination
+
+After disabling termination protection, the EC2 instance was terminated successfully.
+
+The instance progressed through the shutdown process and eventually reached the **Terminated** state.
+
+This completed the EC2 instance lifecycle demonstrated in this lab:
+
+**Launch → Run → Monitor → Secure → Resize → Protect → Terminate**
 
 ---
 
@@ -119,7 +201,11 @@ Monitoring helps verify that the underlying instance is operating normally befor
 * A security group acts as a virtual firewall controlling network traffic to an EC2 instance.
 * A running EC2 instance can still be inaccessible if the required inbound traffic is not permitted.
 * HTTP web traffic uses TCP port 80 by default.
-* Security configuration should allow only the traffic that is required.
+* EC2 instance types can be changed to adjust compute capacity.
+* EBS volumes can be expanded to provide additional storage.
+* Termination protection can help prevent accidental deletion.
+* Stopping and terminating an EC2 instance are different lifecycle actions.
+* Termination permanently removes the EC2 instance.
 
 ---
 
@@ -143,36 +229,42 @@ The web server became accessible and displayed:
 
 This helped reinforce the relationship between an EC2 instance, its web server, and its security group.
 
+### Termination Attempt Blocked
+
+**Problem:**
+The EC2 instance could not be terminated during the initial termination attempt.
+
+**Investigation:**
+Termination protection was enabled.
+
+**Solution:**
+Termination protection was intentionally disabled after confirming that it successfully prevented termination.
+
+**Result:**
+The EC2 instance was then terminated successfully.
+
 ---
 
 ## Screenshots
 
 Screenshots documenting the deployment and configuration of the EC2 web server will be added to this section.
 
-Planned evidence includes:
-
-* EC2 launch configuration
-* Running EC2 instance
-* Successful status checks
-* Initial security group with no inbound rules
-* HTTP security group rule
-* Working web server
-* EC2 monitoring
-* Instance resizing
-* EBS volume resizing
-* Termination protection
-* Final instance termination
-
 ---
 
-## Video Demonstration
+## Lab Reflection
 
-A video demonstration of this lab will be added to document the hands-on deployment process and key concepts learned.
+This lab gave me my first practical experience working with Amazon EC2.
+
+One of the most important lessons was that successfully launching a server is only one part of deploying a web application. Network access, monitoring, compute resources, storage, and protection mechanisms all play an important role.
+
+The security group troubleshooting was particularly useful because the EC2 instance itself was healthy, but the website was inaccessible until the correct HTTP rule was added.
+
+The lab also helped me understand the difference between stopping, resizing, protecting, and terminating an EC2 instance.
 
 ---
 
 ## Status
 
-🟡 In Progress
+🟢 Complete
 
-More sections will be completed as the remaining stages of the lab are performed.
+**Completed:** September 2026
