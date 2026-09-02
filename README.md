@@ -68,14 +68,6 @@ For each lab, I document:
 
 ---
 
-##  Learning Journey
-
-I'm also documenting selected labs through short
-video demonstrations to show the practical process behind
-the work documented in this repository.
-
----
-
 ##  Progress
 
 **AWS re/Start Journey — Started September 2026**
